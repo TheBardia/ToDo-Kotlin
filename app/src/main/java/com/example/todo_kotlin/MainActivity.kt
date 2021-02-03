@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
-import java.net.URL
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,11 +26,6 @@ class MainActivity : AppCompatActivity() {
                 toDoAdapter.addToDo(todo)
                 etToDoTitle.text.clear()
             }
-
-            val text = "Hello toast!"
-            val duration = Toast.LENGTH_SHORT
-            val toast = Toast.makeText(applicationContext, text, duration)
-            toast.show()
         }
 
         btnDeleteDoneToDos.setOnClickListener {
