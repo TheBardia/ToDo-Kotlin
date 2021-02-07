@@ -5,11 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_todo.view.*
 
 class ToDoAdapter(
-        private val todos: MutableList<ToDo>
+        private val todos: MutableList<ToDoItem>
         ) : RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder> (){
 
     class ToDoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -24,14 +25,14 @@ class ToDoAdapter(
         )
     }
 
-    fun addToDo(todo: ToDo, ) {
+    fun addToDo(todo: ToDoItem, ) {
         todos.add(todo)
         notifyItemInserted(todos.size - 1)
     }
 
     fun deleteDoneToDos() {
         todos.removeAll { todo ->
-            todo.isChecked
+            todo.completed
         }
         notifyDataSetChanged()
     }
@@ -47,12 +48,12 @@ class ToDoAdapter(
     override fun onBindViewHolder(holder: ToDoViewHolder, position: Int) {
         val currentToDo = todos[position]
         holder.itemView.apply {
-            tvToDoTitle.text = currentToDo.title
-            cbDone.isChecked = currentToDo.isChecked
-            toggleStrikeThrough(tvToDoTitle, currentToDo.isChecked)
+            tvToDoTitle.text = currentToDo.action
+            cbDone.isChecked = currentToDo.completed
+            toggleStrikeThrough(tvToDoTitle, currentToDo.completed)
             cbDone.setOnCheckedChangeListener { _, isChecked ->
                 toggleStrikeThrough(tvToDoTitle, isChecked)
-                currentToDo.isChecked = !currentToDo.isChecked
+                currentToDo.completed = !currentToDo.completed
             }
         }
     }

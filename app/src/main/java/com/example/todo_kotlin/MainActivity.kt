@@ -2,11 +2,12 @@ package com.example.todo_kotlin
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    private var count = 0;
 
     private lateinit var toDoAdapter: ToDoAdapter
 
@@ -22,14 +23,19 @@ class MainActivity : AppCompatActivity() {
         btnAddToDo.setOnClickListener {
             val todoTitle = etToDoTitle.text.toString()
             if(todoTitle.isNotEmpty()) {
-                val todo = ToDo(todoTitle)
+                val todo = ToDoItem(todoTitle,false, count)
                 toDoAdapter.addToDo(todo)
                 etToDoTitle.text.clear()
+                count++
+                val jsonFetcher = AsyncCaller()
+                val asyncCaller = AsyncCaller()
+                asyncCaller.run()
             }
         }
 
         btnDeleteDoneToDos.setOnClickListener {
             toDoAdapter.deleteDoneToDos()
         }
+
     }
 }
